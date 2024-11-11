@@ -1,0 +1,73 @@
+/* Global font setting */
+* {
+    font-family: "Arial";      /* Set font to Arial for all widgets */
+}
+
+QMenuBar {
+    spacing: 7px;               /* Space between menu items */
+    background-color: #f0f0f0;  /* Menu bar background color */
+    border: none;                /* No border for the menu bar */
+}
+
+QMenuBar::item {
+    padding: 4px 10px;          /* Padding for each menu button */
+    border: 1px solid #ccc;     /* Solid border for each menu button */
+    border-radius: 4px;         /* Slightly rounded corners */
+    background-color: transparent; /* No background color */
+}
+
+QMenuBar::item:selected {
+    background-color: #d0d0d0;  /* Background color on hover */
+}
+
+QMenu {
+    border: 1px solid #ccc;      /* Border around the dropdown menu */
+    background-color: #f9f9f9;   /* Dropdown menu background color */
+}
+
+QMenu::item {
+    padding: 10px 15px;          /* Padding for each menu item */
+    border: none;                 /* No border for menu items */
+}
+
+QMenu::item:selected {
+    background-color: #d0d0d0;   /* Background color on hover */
+    color: #333;                  /* Text color on hover */
+}
+
+QToolBar {
+    background-color: #f0f0f0; /* Toolbar background color */
+    border: 1px solid #ccc;    /* Toolbar border */
+}
+
+QToolButton {
+    padding: 5px;              /* Button padding */
+    margin: 5px;               /* Space between actions */
+    font-size: 24px;           /* Title font size */
+    color: #333;               /* Title font color */
+    border-radius: 5px;        /* Rounded corners */
+}
+
+QToolButton:hover {
+    background-color: #e0e0e0; /* Background color on hover */
+    border-radius: 5px;        /* Maintain rounded corners on hover */
+}
+
+QToolButton:pressed {
+    background-color: #d0d0d0; /* Background color when pressed */
+    border-radius: 5px;        /* Maintain rounded corners when pressed */
+}
+
+QToolButton::menu-indicator {
+    image: none;                /* Hide the dropdown menu indicator */
+}
+
+QToolButton::text {
+    font-weight: bold;          /* Bold title font */
+    padding: 0;                /* Title padding */
+}
+
+/* Set the default icon size for all tool buttons */
+QToolButton {
+    qproperty-iconSize: 48px;  /* Change this value to adjust the icon size */
+}

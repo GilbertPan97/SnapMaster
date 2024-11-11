@@ -1,0 +1,39 @@
+/* Style for the custom plot dock widget */
+#Plot {
+    background-color: #ffffff; /* Set background color */
+}
+
+QCustomPlot {
+    /* Example for setting graph line color and width */
+    border: 2px solid red; /* Adjust as necessary */
+}
+
+/* Style for the plot axes */
+QCPAxis {
+    border: 2px solid black; /* Set border color and width */
+    color: black; /* Set axis label color */
+}
+
+/* Style for the grid lines */
+QCPGrid {
+    color: gray; /* Set grid color */
+    style: dashed; /* Set grid line style */
+}
+
+/* Style for the graph lines */
+QCPGraph {
+    color: red; /* Set line color */
+    width: 4px; /* Set line width */
+}
+
+/* Style for scatter points */
+QCPScatterStyle {
+    shape: disc; /* Use disc markers */
+    size: 8px; /* Set marker size */
+}
+
+/* Style for the labels */
+QCPAxisLabel {
+    font-size: 12px; /* Set font size */
+    font-weight: bold; /* Set font weight */
+}

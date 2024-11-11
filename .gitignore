@@ -1,0 +1,20 @@
+# build file
+build/
+
+# vscode file
+.vscode/
+
+# third party
+3rd-party/
+
+# build export folder
+output/
+
+# temp folder
+sandbox/
+
+# build files
+*.exe
+*.pdb
+*.dll
+*.lib
