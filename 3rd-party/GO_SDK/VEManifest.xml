@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Manifest version="1">
+  <ManifestType>VE</ManifestType>
+  <Version>4.0.1.158</Version>
+  <Revision>d38828c5cb086b9d3471ba8860e563e5c06c3867</Revision>
+  <GocatorVersion>6.3.10.1</GocatorVersion>
+  <GocatorRevision>ef3cd3c486dd218a71fad547c91f75f5d4fdb2d8</GocatorRevision>
+  <PlatformVersion>9.11.1.22</PlatformVersion>
+  <PlatformRevision>eb2edeb4b165e1c05f9fc2f86422e7837c49be76</PlatformRevision>
+  <BuildType>Release</BuildType>
+</Manifest>

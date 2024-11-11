@@ -5,7 +5,8 @@ build/
 .vscode/
 
 # third party
-3rd-party/
+# 3rd-party/
+3rd-party/GO_SDK/doc
 
 # build export folder
 output/
