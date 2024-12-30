@@ -4,7 +4,6 @@ if (${QT_VERSION_MAJOR})
 else()
   find_package(QT NAMES Qt6 Qt5 COMPONENTS Core REQUIRED)
 endif()
-
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Gui Widgets REQUIRED)
 if (UNIX AND NOT APPLE)
     include_directories(${Qt${QT_VERSION_MAJOR}Gui_PRIVATE_INCLUDE_DIRS})
@@ -13,7 +12,6 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 if(BUILD_STATIC)
     set(CMAKE_STATIC_LIBRARY_SUFFIX "_static${CMAKE_STATIC_LIBRARY_SUFFIX}")
 endif()
-
 set(ads_SRCS
     ads_globals.cpp
     DockAreaTabBar.cpp
@@ -36,7 +34,7 @@ set(ads_SRCS
     AutoHideTab.cpp
     AutoHideDockContainer.cpp
     PushButton.cpp
-	ResizeHandle.cpp
+    ResizeHandle.cpp
     ads.qrc
 )
 set(ads_HEADERS
@@ -62,7 +60,7 @@ set(ads_HEADERS
     AutoHideTab.h
     AutoHideDockContainer.h
     PushButton.h
-	ResizeHandle.h
+    ResizeHandle.h
 )
 add_compile_options("$<$<CXX_COMPILER_ID:MSVC>:/utf-8>")
 if (UNIX AND NOT APPLE)
@@ -85,7 +83,12 @@ target_link_libraries(${library_name} PUBLIC Qt${QT_VERSION_MAJOR}::Core
                                                Qt${QT_VERSION_MAJOR}::Gui 
                                                Qt${QT_VERSION_MAJOR}::Widgets)
 if (UNIX AND NOT APPLE)
-  target_link_libraries(${library_name} PUBLIC xcb)
+  if (${CMAKE_SYSTEM_NAME} MATCHES "FreeBSD")
+      find_package(X11 REQUIRED)
+      target_link_libraries(${library_name} PUBLIC X11::xcb)
+  else()
+    target_link_libraries(${library_name} PUBLIC xcb)
+  endif()
 endif()
 set_target_properties(${library_name} PROPERTIES
     AUTOMOC ON

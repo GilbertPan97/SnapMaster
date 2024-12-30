@@ -3,6 +3,7 @@ set(CMAKE_CXX_STANDARD 11)
 
 add_subdirectory(CLogger)
 add_subdirectory(LMI)
+add_subdirectory(SSZN)
 
 # Define source files and header files
 set(SRC_FILES

@@ -92,7 +92,7 @@ xcb_atom_t xcb_get_atom(const char *name)
 	}
 	xcb_connection_t *connection = x11_connection();
 	xcb_intern_atom_cookie_t request = xcb_intern_atom(connection, 1, strlen(name), name);
-	xcb_intern_atom_reply_t *reply = xcb_intern_atom_reply(connection, request, NULL);
+	xcb_intern_atom_reply_t *reply = xcb_intern_atom_reply(connection, request, nullptr);
 	if (!reply)
 	{
 		return XCB_ATOM_NONE;
@@ -290,7 +290,7 @@ QString detectWindowManagerX11()
 	QString ret = xcb_get_prop_string(support_win, "_NET_WM_NAME");
 	if(ret.length() == 0)
 	{
-		ADS_PRINT("Empty WM name occured.");
+		ADS_PRINT("Empty WM name occurred.");
 		return "UNKNOWN";
 	}
 	return ret;
@@ -330,6 +330,47 @@ CDockInsertParam dockAreaInsertParameters(DockWidgetArea Area)
     } // switch (Area)
 
 	return CDockInsertParam(Qt::Vertical, false);
+}
+
+
+//============================================================================
+SideBarLocation toSideBarLocation(DockWidgetArea Area)
+{
+	switch (Area)
+	{
+	case LeftAutoHideArea: return SideBarLeft;
+	case RightAutoHideArea: return SideBarRight;
+	case TopAutoHideArea: return SideBarTop;
+	case BottomAutoHideArea: return SideBarBottom;
+	default:
+		return SideBarNone;
+	}
+
+	return SideBarNone;
+}
+
+
+//============================================================================
+bool isHorizontalSideBarLocation(SideBarLocation Location)
+{
+	switch (Location)
+	{
+	case SideBarTop:
+	case SideBarBottom: return true;
+	case SideBarLeft:
+	case SideBarRight: return false;
+	default:
+		return false;
+	}
+
+	return false;
+}
+
+
+//============================================================================
+bool isSideBarArea(DockWidgetArea Area)
+{
+	return toSideBarLocation(Area) != SideBarNone;
 }
 
 

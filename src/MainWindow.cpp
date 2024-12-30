@@ -25,6 +25,8 @@
 #include <QTimer>
 #include <QSettings>
 
+#include <opencv2/core/core.hpp> 
+
 #include <Windows.h>
 #include <iphlpapi.h>
 
@@ -46,10 +48,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), isPlaying_(false)
 
     // Setup the menuBar
     mainMenuBar_ = this->menuBar();
-    setMenuBar(mainMenuBar_);            // Set the menu bar to the main window
+    setMenuBar(mainMenuBar_);               // Set the menu bar to the main window
     QFrame *line = new QFrame(this);
-    line->setFrameShape(QFrame::HLine);  // Set to horizontal line
-    line->setFrameShadow(QFrame::Sunken); // Set the shadow style
+    line->setFrameShape(QFrame::HLine);     // Set to horizontal line
+    line->setFrameShadow(QFrame::Sunken);   // Set the shadow style
 
     // Create a layout for the central widget
     QVBoxLayout *centralLayout = new QVBoxLayout(centralWidget);
@@ -83,7 +85,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), isPlaying_(false)
     dockManager_->setSplitterSizes(bottomDockArea, {1280/10 * 8, 1280/10 * 2});
     centralLayout->addWidget(dockManager_);
 
-    setCentralWidget(centralWidget);  // Set the central widget with the layout
+    setCentralWidget(centralWidget);    // Set the central widget with the layout
 
     // Create mainwindow pointer for log call back in C function
     instance = this;
@@ -852,6 +854,46 @@ void MainWindow::onUploadButtonClicked() {
             curData_.pointCount++;
         }
         file.close();
+    }
+    else if (filePath.endsWith(".yml")) {
+        // Handle YML file
+        cv::FileStorage fs(filePath.toStdString(), cv::FileStorage::READ);
+        if (!fs.isOpened()) {
+            QMessageBox::warning(nullptr, "File Error", "Failed to open the YML file.");
+            return;
+        }
+
+        // Read the scan_line from the YML file
+        cv::FileNode scanLineNode = fs["scan_line"];
+        if (scanLineNode.empty()) {
+            QMessageBox::warning(nullptr, "Format Error", "No scan_line data found in the YML file.");
+            return;
+        }
+
+        // Convert the scan_line to a std::vector of floats
+        std::vector<float> scanLineData;
+        scanLineNode >> scanLineData;
+
+        // Check if the data size is a multiple of 3
+        if (scanLineData.size() % 3 != 0) {
+            QMessageBox::warning(nullptr, "Format Error", "Scan line data is not a multiple of 3.");
+            return;
+        }
+
+        // Clear previous data
+        curData_.clear();
+
+        // Iterate over the scan_line data, assuming every 3 values are [x, 0, z]
+        for (size_t i = 0; i < scanLineData.size(); i += 3) {
+            float x = scanLineData[i];     // x coordinate
+            float z = scanLineData[i + 2]; // z coordinate (y is always 0)
+
+            // Add point to curData_
+            curData_.x.append(x);
+            curData_.z.append(z);
+            curData_.pointCount++;
+        }
+        fs.release();  // Close the YML file
     }
     else {
         QMessageBox::warning(nullptr, "File Error", "Unsupported file format.");

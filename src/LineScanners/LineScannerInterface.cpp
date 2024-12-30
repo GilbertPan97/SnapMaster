@@ -16,7 +16,7 @@ LineScannerInterface::LineScannerInterface() : gocator() {
 
 LineScannerInterface::~LineScannerInterface() {
     SetStatus(false);
-    Shutdown();
+    // Shutdown();
 }
 
 CameraStatus LineScannerInterface::Scan(std::vector<CameraInfo>& cameraList) {
@@ -100,7 +100,8 @@ Gocator_Data LineScannerInterface::RetriveData() {
     if (data.pointCount > 0){
         clog("Info: Valid points - %d", data.pointCount);
         return data;
-    } else {
+    } 
+    else {
         clog("Error: No sensor data can be retrive.");
         return data;
     }
