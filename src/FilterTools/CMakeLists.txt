@@ -2,7 +2,7 @@
 set(CMAKE_CXX_STANDARD 11)
 
 # Find OpenCV package
-# find_package(OpenCV REQUIRED PATHS ${THIRD_PARTY}/opencv-4.5.4 NO_DEFAULT_PATH)
+find_package(OpenCV REQUIRED HINTS ${THIRD_PARTY}/opencv-4.5.4/x64/vc16/lib NO_DEFAULT_PATH)
 find_package(OpenCV REQUIRED)
 
 if(OpenCV_FOUND)
